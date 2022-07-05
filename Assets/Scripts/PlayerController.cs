@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
             // Ekrana basılı tutulduğunda
             isJump = true;
             anim.SetBool("Flying", true);
+            AudioController.audioControllerInstance.Play("WeaponSound");
         }
         if (Input.GetMouseButtonUp(0))
         {
@@ -77,6 +78,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground") && GameManager.gamemanagerInstance.gameStart)
         {
             anim.SetBool("Flying", false);
+            AudioController.audioControllerInstance.Stop("WeaponSound");
         }
     }
     private void OnTriggerEnter(Collider other)

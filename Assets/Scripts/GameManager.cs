@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         gameStart = false;
         isFinish = false;
         Time.timeScale = 1;
+        AudioController.audioControllerInstance.Play("BGSound");
     }
     void Update()
     {
@@ -34,6 +35,19 @@ public class GameManager : MonoBehaviour
     public void Power()
     {
         // Power Açýlsýn
+        AudioController.audioControllerInstance.Play("PowerSound");
+    }
+    public void Music(int value)
+    {        
+        if (value == 0)
+        {
+            AudioController.audioControllerInstance.Stop("BGSound");
+
+        }
+        else
+        {
+            AudioController.audioControllerInstance.Play("BGSound");
+        }        
     }
     public void NextLevel()
     {
