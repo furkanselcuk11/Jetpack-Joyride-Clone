@@ -6,7 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private Animator anim;
-
+    [Space]
+    [Header("Player Controller")]
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpSpeed = 100f;
     [SerializeField] private bool isJump;
@@ -15,7 +16,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         isJump = false;        
     }
-
     
     void Update()
     {
@@ -26,10 +26,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Ekrana tıklandığında
-            GameManager.gamemanagerInstance.gameStart = true;
-            anim.SetBool("Running", true);
+            //GameManager.gamemanagerInstance.gameStart = true;
+            //anim.SetBool("Running", true);
+
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && GameManager.gamemanagerInstance.gameStart)
         {
             // Ekrana basılı tutulduğunda
             isJump = true;
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (GameManager.gamemanagerInstance.gameStart)
+        if (GameManager.gamemanagerInstance.gameStart && !GameManager.gamemanagerInstance.isFinish)
         {
             Move();
         }
@@ -51,10 +52,16 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
         }
-        if(GameManager.gamemanagerInstance.gameStart && isJump)
+        if(GameManager.gamemanagerInstance.gameStart && isJump && !GameManager.gamemanagerInstance.isFinish)
         {
             Jump();
         }
+    }
+    public void TapToStart()
+    {
+        GameManager.gamemanagerInstance.gameStart = true;
+        UIController.uicontrollerInstance.GamePlayActive();        
+        anim.SetBool("Running", true);
     }
     void Move()
     {
@@ -72,5 +79,22 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flying", false);
         }
     }
-    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            // Coin objesine temas edilmişse
+        }
+        if (other.CompareTag("Block"))
+        {
+            // Block objesine temas edilmişse
+            // LosePanel Açıl
+        }
+        if (other.CompareTag("Finish"))
+        {
+            // Finish objesine temas edilmişse
+            GameManager.gamemanagerInstance.isFinish = true;
+            // WinPanel Açıl
+        }
+    }
 }
