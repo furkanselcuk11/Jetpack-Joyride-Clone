@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
         AudioController.audioControllerInstance.Play("PowerSound");
     }
     public void Music(int value)
-    {        
+    {    
+        // Müzik aç/kapat
         if (value == 0)
         {
             AudioController.audioControllerInstance.Stop("BGSound");

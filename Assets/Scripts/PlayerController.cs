@@ -80,23 +80,32 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flying", false);
             AudioController.audioControllerInstance.Stop("WeaponSound");
         }
+        if (collision.gameObject.CompareTag("Rocket"))
+        {
+            // Rocket isabet etti
+            Debug.Log("GameOver");
+            GameManager.gamemanagerInstance.gameStart = false;
+            anim.SetTrigger("Died");    // Ölüm efekti oynat
+            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin"))
         {
             // Coin objesine temas edilmişse
+            GameManager.gamemanagerInstance.AddCoin();  // Coin Ekle
         }
         if (other.CompareTag("Block"))
         {
             // Block objesine temas edilmişse
-            // LosePanel Açıl
+            UIController.uicontrollerInstance.LosePanelActive(); // LosePanel Açıl
         }
         if (other.CompareTag("Finish"))
         {
             // Finish objesine temas edilmişse
             GameManager.gamemanagerInstance.isFinish = true;
-            // WinPanel Açıl
+            UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
         }
     }
 }
