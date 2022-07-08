@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour
     [Header("Player Controller")]
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpSpeed = 100f;
+    [SerializeField] private ParticleSystem jetpackEffect;
     [SerializeField] private bool isJump;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        isJump = false;        
+        isJump = false;
     }
     
     void Update()
@@ -26,21 +28,21 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Ekrana tıklandığında
-            //GameManager.gamemanagerInstance.gameStart = true;
-            //anim.SetBool("Running", true);
-
+            
         }
         if (Input.GetMouseButton(0) && GameManager.gamemanagerInstance.gameStart)
         {
             // Ekrana basılı tutulduğunda
             isJump = true;
-            anim.SetBool("Flying", true);
+            anim.SetBool("Flying", true);            
             AudioController.audioControllerInstance.Play("WeaponSound");
+            
         }
         if (Input.GetMouseButtonUp(0))
         {
             // Ekrana dokunma bırakıldığında
             isJump = false;
+            jetpackEffect.Stop();
         }
     }
     private void FixedUpdate()
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
     void Jump()
     {
         rb.AddForce(transform.up * _jumpSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+        jetpackEffect.Play();
         //rb.velocity = transform.up * _jumpSpeed * Time.fixedDeltaTime;
     }
     private void OnCollisionEnter(Collision collision)
@@ -82,11 +85,28 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Rocket"))
         {
-            // Rocket isabet etti
-            Debug.Log("GameOver");
-            GameManager.gamemanagerInstance.gameStart = false;
-            anim.SetTrigger("Died");    // Ölüm efekti oynat
-            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+            // Rocket isabet etti            
+            if (!GameManager.gamemanagerInstance.isShield)
+            {
+                // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+                Debug.Log("GameOver");
+                GameManager.gamemanagerInstance.gameStart = false;
+                anim.SetTrigger("Died");    // Ölüm efekti oynat
+                UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+            }
+            
+        }
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            // Block objesine temas edilmişse
+            if (!GameManager.gamemanagerInstance.isShield)
+            {
+                // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+                Debug.Log("GameOver");
+                GameManager.gamemanagerInstance.gameStart = false;
+                anim.SetTrigger("Died");    // Ölüm efekti oynat
+                UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+            }
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -96,10 +116,14 @@ public class PlayerController : MonoBehaviour
             // Coin objesine temas edilmişse
             GameManager.gamemanagerInstance.AddCoin();  // Coin Ekle
         }
-        if (other.CompareTag("Block"))
+        if (other.CompareTag("Shield"))
         {
-            // Block objesine temas edilmişse
-            UIController.uicontrollerInstance.LosePanelActive(); // LosePanel Açıl
+            // Shield objesine temas edilmişse
+            // Shield aktif olur
+            AudioController.audioControllerInstance.Play("SheildSound");
+            GameManager.gamemanagerInstance.isShield = true;
+            ShieldOpen();
+            Debug.Log("Sheild Open");
         }
         if (other.CompareTag("Finish"))
         {
@@ -107,5 +131,9 @@ public class PlayerController : MonoBehaviour
             GameManager.gamemanagerInstance.isFinish = true;
             UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
         }
+    }
+    void ShieldOpen()
+    {
+        // Shield aktif kalma süresi kadar çalışır ve ölümsüz olur
     }
 }

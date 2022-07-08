@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Ground
   - Rocket
+  - Block
+  - PlayerEyes
+  - Enemy
+  - Coin
+  - Shield
   layers:
   - Default
   - TransparentFX

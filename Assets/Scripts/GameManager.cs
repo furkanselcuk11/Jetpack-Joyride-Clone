@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameStart;
     public bool isFinish;
+    public bool isShield;
 
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         gameStart = false;
         isFinish = false;
+        isShield = false;
         Time.timeScale = 1;
         AudioController.audioControllerInstance.Play("BGSound");
     }
@@ -31,11 +33,14 @@ public class GameManager : MonoBehaviour
     public void AddCoin()
     {
         // Altýn Ekle
+        Debug.Log("Coin added");
+        AudioController.audioControllerInstance.Play("CoinSound");
     }
     public void Power()
     {
         // Power Açýlsýn
         AudioController.audioControllerInstance.Play("PowerSound");
+        Debug.Log("Power Open");
     }
     public void Music(int value)
     {    
