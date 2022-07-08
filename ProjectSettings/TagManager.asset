@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Coin
   - Shield
+  - Bullet
   layers:
   - Default
   - TransparentFX

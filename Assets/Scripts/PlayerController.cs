@@ -9,10 +9,15 @@ public class PlayerController : MonoBehaviour
     [Space]
     [Header("Player Controller")]
     [SerializeField] private float _speed = 10f;
-    [SerializeField] private float _jumpSpeed = 100f;
-    [SerializeField] private ParticleSystem jetpackEffect;
+    [SerializeField] private float _jumpSpeed = 100f;    
     [SerializeField] private bool isJump;
-    
+    [Space]
+    [Header("Jetpack Controller")]
+    [SerializeField] private ParticleSystem jetpackEffect;
+    [SerializeField] private Transform jetpackBulletSpawnPoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float bulletSpeed;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,7 +39,8 @@ public class PlayerController : MonoBehaviour
         {
             // Ekrana basılı tutulduğunda
             isJump = true;
-            anim.SetBool("Flying", true);            
+            anim.SetBool("Flying", true);
+            BulletSpawner();
             AudioController.audioControllerInstance.Play("WeaponSound");
             
         }
@@ -135,5 +141,10 @@ public class PlayerController : MonoBehaviour
     void ShieldOpen()
     {
         // Shield aktif kalma süresi kadar çalışır ve ölümsüz olur
+    }
+    void BulletSpawner()
+    {
+        GameObject newBullet = Instantiate(bulletPrefab, jetpackBulletSpawnPoint.position, jetpackBulletSpawnPoint.rotation);
+        newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode.Force);
     }
 }

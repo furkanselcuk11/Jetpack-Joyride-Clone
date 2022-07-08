@@ -1175,6 +1175,7 @@ Transform:
   - {fileID: 3412769509335055212}
   - {fileID: 6724384329937864906}
   - {fileID: 6162460297122571043}
+  - {fileID: 1353795224}
   m_Father: {fileID: 1148359557}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7186,8 +7187,11 @@ MonoBehaviour:
   anim: {fileID: 2480795973884305564}
   _speed: 7
   _jumpSpeed: 20
-  jetpackEffect: {fileID: 118141340}
   isJump: 0
+  jetpackEffect: {fileID: 118141340}
+  jetpackBulletSpawnPoint: {fileID: 1353795224}
+  bulletPrefab: {fileID: 5057597687448198673, guid: 3c501f53a7a4c48409a8938f9f556754, type: 3}
+  bulletSpeed: 1000
 --- !u!54 &1148359559
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7842,6 +7846,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1319275638}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1353795223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1353795224}
+  m_Layer: 0
+  m_Name: JetpackBulletPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1353795224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353795223}
+  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 1.35, z: -0.296}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 178691084}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!1 &1369465536
 GameObject:
   m_ObjectHideFlags: 0
