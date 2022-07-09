@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
 
     public bool gameStart;
     public bool isFinish;
-    public bool isShield;
+    private int meter;
+    private int coin;
 
     private void Awake()
     {
@@ -22,9 +23,16 @@ public class GameManager : MonoBehaviour
     {
         gameStart = false;
         isFinish = false;
-        isShield = false;
         Time.timeScale = 1;
         AudioController.audioControllerInstance.Play("BGSound");
+        StartTextReset();
+    }
+    void StartTextReset()
+    {
+        meter = 0;
+        coin = 0;
+        UIController.uicontrollerInstance.GamePlayMeterText.text = meter.ToString() + " m";
+        UIController.uicontrollerInstance.GamePlayGoldText.text = coin.ToString();
     }
     void Update()
     {
@@ -35,6 +43,8 @@ public class GameManager : MonoBehaviour
         // Altýn Ekle
         Debug.Log("Coin added");
         AudioController.audioControllerInstance.Play("CoinSound");
+        coin++;
+        UIController.uicontrollerInstance.GamePlayGoldText.text = coin.ToString(); ;
     }
     
     public void Music(int value)
@@ -69,5 +79,16 @@ public class GameManager : MonoBehaviour
     {
         // Oyundan çýk
         Application.Quit();
+    }
+    public IEnumerator MeterCounter()
+    {
+        while (true)
+        {
+
+            yield return new WaitForSeconds(0.1f);
+            meter += 1;
+            UIController.uicontrollerInstance.GamePlayMeterText.text = meter.ToString() + " m";
+        }
+
     }
 }

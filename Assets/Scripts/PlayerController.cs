@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _jumpSpeed = 100f;    
     [SerializeField] private bool isJump;
     [SerializeField] private float playerToEnemyDistance = 18f;
+    [SerializeField] private bool isShield;
+    [SerializeField] private float shieldTime = 5f;
     [Space]
     [Header("Jetpack Controller")]
     [SerializeField] private ParticleSystem jetpackEffect;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         isJump = false;
+        isShield = false;
     }
     
     void Update()
@@ -63,6 +66,15 @@ public class PlayerController : MonoBehaviour
                 timer = 0;
             }
         }
+        if (isShield)
+        {
+            shieldTime -= Time.deltaTime;
+            if (shieldTime <= 0)
+            {                
+                isShield = false;
+                shieldTime = 0f;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -84,6 +96,7 @@ public class PlayerController : MonoBehaviour
         GameManager.gamemanagerInstance.gameStart = true;
         UIController.uicontrollerInstance.GamePlayActive();        
         anim.SetBool("Running", true);
+        GameManager.gamemanagerInstance.StartCoroutine("MeterCounter");
     }
     void Move()
     {
@@ -107,30 +120,24 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flying", false);
             AudioController.audioControllerInstance.Stop("WeaponSound");
         }
-        if (collision.gameObject.CompareTag("Rocket"))
+        if (collision.gameObject.CompareTag("Rocket") && !isShield)
         {
-            // Rocket isabet etti            
-            if (!GameManager.gamemanagerInstance.isShield)
-            {
-                // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
-                Debug.Log("GameOver");
-                GameManager.gamemanagerInstance.gameStart = false;
-                anim.SetTrigger("Died");    // Ölüm efekti oynat
-                UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
-            }
-            
+            // Rocket objesine temas edilmişse
+            // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+            Debug.Log("GameOver");
+            GameManager.gamemanagerInstance.gameStart = false;
+            anim.SetTrigger("Died");    // Ölüm efekti oynat
+            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+
         }
-        if (collision.gameObject.CompareTag("Block"))
+        if (collision.gameObject.CompareTag("Block") && !isShield)
         {
             // Block objesine temas edilmişse
-            if (!GameManager.gamemanagerInstance.isShield)
-            {
-                // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
-                Debug.Log("GameOver");
-                GameManager.gamemanagerInstance.gameStart = false;
-                anim.SetTrigger("Died");    // Ölüm efekti oynat
-                UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
-            }
+            // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+            Debug.Log("GameOver");
+            GameManager.gamemanagerInstance.gameStart = false;
+            anim.SetTrigger("Died");    // Ölüm efekti oynat
+            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -142,12 +149,8 @@ public class PlayerController : MonoBehaviour
         }
         if (other.CompareTag("Shield"))
         {
-            // Shield objesine temas edilmişse
-            // Shield aktif olur
-            AudioController.audioControllerInstance.Play("SheildSound");
-            GameManager.gamemanagerInstance.isShield = true;
-            ShieldOpen();
-            Debug.Log("Sheild Open");
+            // Shield objesine temas edilmişse                      
+            ShieldOpen();           
         }
         if (other.CompareTag("Finish"))
         {
@@ -158,7 +161,11 @@ public class PlayerController : MonoBehaviour
     }
     void ShieldOpen()
     {
+        // Shield aktif olur  
         // Shield aktif kalma süresi kadar çalışır ve ölümsüz olur
+        Debug.Log("Sheild Open");
+        AudioController.audioControllerInstance.Play("SheildSound");
+        isShield = true;
     }
     void BulletSpawner()
     {       

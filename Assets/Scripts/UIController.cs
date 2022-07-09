@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -14,6 +15,17 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject LosePanel;
     [SerializeField] private GameObject WinPanel;
     [SerializeField] private GameObject PausePanel;
+    
+    [Space]
+    [Header("StartPanelText Controller")]
+    public TextMeshProUGUI TotalGoldText;
+    [Header("GamePlayPanelText Controller")]
+    public TextMeshProUGUI GamePlayGoldText;
+    public TextMeshProUGUI GamePlayMeterText;
+    [Header("WinPanelText Controller")]    
+    public TextMeshProUGUI WinMeterText;
+    public TextMeshProUGUI WinGoldText;   
+    
 
     private void Awake()
     {
@@ -63,5 +75,9 @@ public class UIController : MonoBehaviour
         LosePanel.SetActive(false);
         WinPanel.SetActive(true);
         PausePanel.SetActive(false);
+    }
+    public void StartText()
+    {
+        
     }
 }

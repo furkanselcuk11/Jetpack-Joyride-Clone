@@ -26282,6 +26282,11 @@ MonoBehaviour:
   LosePanel: {fileID: 153407856}
   WinPanel: {fileID: 1211518156}
   PausePanel: {fileID: 1752484391}
+  TotalGoldText: {fileID: 1941023406}
+  GamePlayGoldText: {fileID: 279232685}
+  GamePlayMeterText: {fileID: 287617299}
+  WinMeterText: {fileID: 603971565}
+  WinGoldText: {fileID: 880148495}
 --- !u!1 &899973653
 GameObject:
   m_ObjectHideFlags: 0
@@ -32695,6 +32700,8 @@ MonoBehaviour:
   _jumpSpeed: 20
   isJump: 0
   playerToEnemyDistance: 18
+  isShield: 0
+  shieldTime: 5
   jetpackEffect: {fileID: 118141340}
   jetpackBulletSpawnPoint: {fileID: 1353795224}
   bulletPrefab: {fileID: 5057597687448198673, guid: 3c501f53a7a4c48409a8938f9f556754, type: 3}
@@ -60846,7 +60853,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStart: 0
   isFinish: 0
-  isShield: 0
 --- !u!1 &2089557574
 GameObject:
   m_ObjectHideFlags: 0
