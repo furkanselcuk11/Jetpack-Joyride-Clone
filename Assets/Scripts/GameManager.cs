@@ -36,12 +36,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Coin added");
         AudioController.audioControllerInstance.Play("CoinSound");
     }
-    public void Power()
-    {
-        // Power Açýlsýn
-        AudioController.audioControllerInstance.Play("PowerSound");
-        Debug.Log("Power Open");
-    }
+    
     public void Music(int value)
     {    
         // Müzik aç/kapat

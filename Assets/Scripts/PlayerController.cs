@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _jumpSpeed = 100f;    
     [SerializeField] private bool isJump;
+    [SerializeField] private float playerToEnemyDistance = 18f;
     [Space]
     [Header("Jetpack Controller")]
     [SerializeField] private ParticleSystem jetpackEffect;
@@ -170,5 +171,22 @@ public class PlayerController : MonoBehaviour
         //newBullet2.GetComponent<Rigidbody>().velocity = newBullet2.transform.up * bulletSpeed;
         Destroy(newBullet, 1);
         Destroy(newBullet2, 1);
+    }
+    public void Power()
+    {
+        // Power Açılır
+        // Ekrandaki tüm düşmanlar yok edilir
+        AudioController.audioControllerInstance.Play("PowerSound");
+        Debug.Log("Power Open");
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject target in enemyObjects)
+        {
+            float dist = Vector3.Distance(target.transform.position, transform.position);
+            if (dist < playerToEnemyDistance)
+            {
+                target.gameObject.GetComponent<Animator>().SetTrigger("Died");
+                Destroy(target,1);
+            }
+        }
     }
 }
