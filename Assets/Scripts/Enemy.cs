@@ -9,9 +9,11 @@ public class Enemy : MonoBehaviour
     [Space]
     [Header("Enemy Controller")]
     [SerializeField] private float _speed = 10f;
+    [SerializeField] private bool isDied;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        isDied = false;
     }
     void Update()
     {
@@ -19,7 +21,7 @@ public class Enemy : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (GameManager.gamemanagerInstance.gameStart)
+        if (GameManager.gamemanagerInstance.gameStart && !isDied)
         {
             Move();
         }        
@@ -31,8 +33,9 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Bullet"))
         {
+            isDied = true;
             anim.SetTrigger("Died");
             Destroy(gameObject, 2);
         }

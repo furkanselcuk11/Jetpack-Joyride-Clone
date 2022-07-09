@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform jetpackBulletSpawnPoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletSpawnTime=1f;
+    [SerializeField] private float timer;
+    [SerializeField] private bool canFire;
 
     void Start()
     {
@@ -40,7 +43,7 @@ public class PlayerController : MonoBehaviour
             // Ekrana basılı tutulduğunda
             isJump = true;
             anim.SetBool("Flying", true);
-            BulletSpawner();
+            
             AudioController.audioControllerInstance.Play("WeaponSound");
             
         }
@@ -49,6 +52,15 @@ public class PlayerController : MonoBehaviour
             // Ekrana dokunma bırakıldığında
             isJump = false;
             jetpackEffect.Stop();
+        }
+        if (!canFire)
+        {
+            timer += Time.deltaTime;
+            if (timer > bulletSpawnTime)
+            {
+                canFire = true;
+                timer = 0;
+            }
         }
     }
     private void FixedUpdate()
@@ -64,7 +76,7 @@ public class PlayerController : MonoBehaviour
         if(GameManager.gamemanagerInstance.gameStart && isJump && !GameManager.gamemanagerInstance.isFinish)
         {
             Jump();
-        }
+        }        
     }
     public void TapToStart()
     {
@@ -80,6 +92,11 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(transform.up * _jumpSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
         jetpackEffect.Play();
+        if (canFire)
+        {
+            canFire = false;
+            BulletSpawner();
+        }
         //rb.velocity = transform.up * _jumpSpeed * Time.fixedDeltaTime;
     }
     private void OnCollisionEnter(Collision collision)
@@ -143,8 +160,15 @@ public class PlayerController : MonoBehaviour
         // Shield aktif kalma süresi kadar çalışır ve ölümsüz olur
     }
     void BulletSpawner()
-    {
+    {       
         GameObject newBullet = Instantiate(bulletPrefab, jetpackBulletSpawnPoint.position, jetpackBulletSpawnPoint.rotation);
-        newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode.Force);
+        GameObject newBullet2 = Instantiate(bulletPrefab, jetpackBulletSpawnPoint.position, Quaternion.Euler(new Vector3(-180f, 0f, 0f)));
+        newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.up * bulletSpeed, ForceMode.Impulse);
+        newBullet2.GetComponent<Rigidbody>().AddForce(newBullet2.transform.up * bulletSpeed, ForceMode.Impulse);
+
+        //newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.up * bulletSpeed;
+        //newBullet2.GetComponent<Rigidbody>().velocity = newBullet2.transform.up * bulletSpeed;
+        Destroy(newBullet, 1);
+        Destroy(newBullet2, 1);
     }
 }
