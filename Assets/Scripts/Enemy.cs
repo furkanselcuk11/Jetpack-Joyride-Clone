@@ -29,15 +29,15 @@ public class Enemy : MonoBehaviour
     void Move()
     {
         transform.Translate(0, 0, _speed * Time.fixedDeltaTime); // Enemy speed deðeri hýzýdna ileri hareket eder
-        anim.SetBool("Running", true);
+        this.anim.SetBool("Running", true);
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet"))
         {
-            isDied = true;
-            anim.SetTrigger("Died");
-            Destroy(gameObject, 2);
+            this.isDied = true;
+            this.anim.SetTrigger("Died");
+            //Destroy(gameObject, 2);
         }
     }
 }

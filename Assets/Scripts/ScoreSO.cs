@@ -11,6 +11,7 @@ public class ScoreSO : ScriptableObject
     [SerializeField] private int _minMeter;
     [SerializeField] private int _currentMeter;
     [SerializeField] private int _totalMeter;
+    [SerializeField] private int _gameLevel=0;
 
     public int minCoin
     {
@@ -41,5 +42,10 @@ public class ScoreSO : ScriptableObject
     {
         get { return _totalMeter; }
         set { _totalMeter = value; }
+    }
+    public int gameLevel
+    {
+        get { return _gameLevel; }
+        set { _gameLevel = value; }
     }
 }

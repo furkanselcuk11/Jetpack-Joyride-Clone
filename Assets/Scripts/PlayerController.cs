@@ -94,7 +94,8 @@ public class PlayerController : MonoBehaviour
     public void TapToStart()
     {
         GameManager.gamemanagerInstance.gameStart = true;
-        UIController.uicontrollerInstance.GamePlayActive();        
+        UIController.uicontrollerInstance.GamePlayActive();
+        FindObjectOfType<Spawner>().SpawnStart();
         anim.SetBool("Running", true);
         GameManager.gamemanagerInstance.StartCoroutine("MeterCounter");
     }
@@ -120,16 +121,16 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flying", false);
             AudioController.audioControllerInstance.Stop("WeaponSound");
         }
-        if (collision.gameObject.CompareTag("Rocket") && !isShield)
-        {
-            // Rocket objesine temas edilmişse
-            // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
-            Debug.Log("GameOver");
-            GameManager.gamemanagerInstance.gameStart = false;
-            anim.SetTrigger("Died");    // Ölüm efekti oynat
-            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+        //if (collision.gameObject.CompareTag("Rocket") && !isShield)
+        //{
+        //    // Rocket objesine temas edilmişse
+        //    // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+        //    Debug.Log("GameOver");
+        //    GameManager.gamemanagerInstance.gameStart = false;
+        //    anim.SetTrigger("Died");    // Ölüm efekti oynat
+        //    UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
 
-        }
+        //}
         if (collision.gameObject.CompareTag("Block") && !isShield)
         {
             // Block objesine temas edilmişse

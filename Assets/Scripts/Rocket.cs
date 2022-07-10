@@ -6,24 +6,34 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private int spawnerTime = 1;
     [SerializeField] private float rocketSpeed;
+    private ObjectPool objectPool = null;
+    private void Awake()
+    {
+        objectPool = FindObjectOfType<Spawner>().GetComponent<ObjectPool>();
+    }
     void Start()
     {
-        StartCoroutine(nameof(BulletSpawner));
+        
+        
     }
-
     
     void Update()
     {
         
     }
-
-    IEnumerator BulletSpawner()
+    public void RocketBulletSpawner()
     {
-        yield return new WaitForSeconds(spawnerTime);
-        GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        newBullet.GetComponent<Rigidbody>().AddForce(-transform.forward * rocketSpeed, ForceMode.Force);
-        AudioController.audioControllerInstance.Play("RocketSound");
+        if (GameManager.gamemanagerInstance.gameStart)
+        {
+            //GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            //newBullet.GetComponent<Rigidbody>().AddForce(-transform.forward * rocketSpeed, ForceMode.Force);
+
+            GameObject newBullet = objectPool.GetPooledObject(9);    // "ObjectPool" scriptinden yeni nesne çeker
+            newBullet.transform.position = new Vector3(0f, this.transform.position.y, this.transform.position.z);
+            newBullet.transform.rotation = bulletSpawnPoint.rotation;
+            newBullet.GetComponent<Rigidbody>().AddForce(-transform.forward * rocketSpeed, ForceMode.Force);
+            AudioController.audioControllerInstance.Play("RocketSound");
+        }
     }
 }
