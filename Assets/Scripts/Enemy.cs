@@ -35,9 +35,15 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Bullet"))
         {
-            this.isDied = true;
-            this.anim.SetTrigger("Died");
-            //Destroy(gameObject, 2);
+            this.StartCoroutine(nameof(EnemyDied));
         }
+    }
+    IEnumerator EnemyDied()
+    {
+        this.isDied = true;
+        this.anim.SetTrigger("Died");
+        yield return new WaitForSeconds(1f);
+        this.isDied = false;
+        this.anim.SetBool("Running", true);
     }
 }

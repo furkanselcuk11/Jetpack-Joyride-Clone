@@ -153,6 +153,16 @@ public class PlayerController : MonoBehaviour
             // Shield objesine temas edilmişse                      
             ShieldOpen();           
         }
+        if (other.CompareTag("Rocket") && !isShield)
+        {
+            // Rocket objesine temas edilmişse
+            // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
+            Debug.Log("GameOver");
+            GameManager.gamemanagerInstance.gameStart = false;
+            anim.SetTrigger("Died");    // Ölüm efekti oynat
+            UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+
+        }
         if (other.CompareTag("Finish"))
         {
             // Finish objesine temas edilmişse
