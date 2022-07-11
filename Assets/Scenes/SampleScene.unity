@@ -4978,10 +4978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396b169c0d3bd9d42b71824706261cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRocketInterval: 0
-  spawnCoinInterval: 0
-  spawnEnemyInterval: 0
-  spawnBlockInterval: 0
   objectPool: {fileID: 834886445}
   poolValue: 0
   player: {fileID: 1148359557}
@@ -5012,7 +5008,7 @@ MonoBehaviour:
     poolSize: 3
   - objectPrefab: {fileID: 5145322358208855199, guid: 3f2850dd0038ca94b9a58cd8ad577549, type: 3}
     poolSize: 5
-  - objectPrefab: {fileID: 709316931469710782, guid: 2419c9824fd08194c8fe0edc8b104c70, type: 3}
+  - objectPrefab: {fileID: 8218011068465065747, guid: 2d34301056215ab48b016ee6f5333aac, type: 3}
     poolSize: 10
   - objectPrefab: {fileID: 696894024575565960, guid: 166b9f37712a9294daa0cc3266fd569c, type: 3}
     poolSize: 5

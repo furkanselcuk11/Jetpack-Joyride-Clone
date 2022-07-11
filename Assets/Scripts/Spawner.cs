@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {    
-    [SerializeField] private float spawnRocketInterval;   // Ne sıklıkla nesne çıkarılacak
-    [SerializeField] private float spawnCoinInterval;   // Ne sıklıkla nesne çıkarılacak
-    [SerializeField] private float spawnEnemyInterval;   // Ne sıklıkla nesne çıkarılacak
-    [SerializeField] private float spawnBlockInterval;   // Ne sıklıkla nesne çıkarılacak
+    private float spawnRocketInterval;   // Ne sıklıkla nesne çıkarılacak
+    private float spawnCoinInterval;   // Ne sıklıkla nesne çıkarılacak
+    private float spawnEnemyInterval;   // Ne sıklıkla nesne çıkarılacak
+    private float spawnBlockInterval;   // Ne sıklıkla nesne çıkarılacak
     [SerializeField] private ObjectPool objectPool = null;
     [SerializeField] private int poolValue = 0;
     [SerializeField] private Transform player;
@@ -28,9 +28,9 @@ public class Spawner : MonoBehaviour
     {
         //spawnInterval = GameManager.gamemanagerInstance.spawnInterval;
         spawnRocketInterval = Random.Range(3f, 6f);
-        spawnCoinInterval = Random.Range(0.1f, 1f);
-        spawnEnemyInterval = Random.Range(1f, 3f);
-        spawnBlockInterval = Random.Range(1.5f, 4.5f);
+        spawnCoinInterval = Random.Range(2f, 6f);
+        spawnEnemyInterval = Random.Range(1f, 5f);
+        spawnBlockInterval = Random.Range(2f, 6f);
     }
     private IEnumerator SpawnRoutineBlock()
     {
@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnCoinInterval); // Fonk çalışma süresi
-            float coinY = Random.Range(1f, 9f);
+            float coinY = Random.Range(-1f, 7f);
             GameObject newObj = objectPool.GetPooledObject(7);
             newObj.transform.position = new Vector3(0f, coinY, player.transform.position.z + 20f);
         }        

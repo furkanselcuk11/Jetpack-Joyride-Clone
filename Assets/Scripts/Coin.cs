@@ -13,4 +13,19 @@ public class Coin : MonoBehaviour
     {
         transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.gamemanagerInstance.AddCoin();
+            this.StartCoroutine(nameof(IsActive));
+        }
+    }
+
+    IEnumerator IsActive()
+    {
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        yield return new WaitForSeconds(2f);
+        this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+    }
 }

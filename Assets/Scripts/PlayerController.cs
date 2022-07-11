@@ -121,16 +121,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Flying", false);
             AudioController.audioControllerInstance.Stop("WeaponSound");
         }
-        //if (collision.gameObject.CompareTag("Rocket") && !isShield)
-        //{
-        //    // Rocket objesine temas edilmişse
-        //    // Eğer isShield (Kalkanlar) aktif değilse karakter ölür
-        //    Debug.Log("GameOver");
-        //    GameManager.gamemanagerInstance.gameStart = false;
-        //    anim.SetTrigger("Died");    // Ölüm efekti oynat
-        //    UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
-
-        //}
         if (collision.gameObject.CompareTag("Block") && !isShield)
         {
             // Block objesine temas edilmişse
@@ -143,11 +133,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Coin"))
-        {
-            // Coin objesine temas edilmişse
-            GameManager.gamemanagerInstance.AddCoin();  // Coin Ekle
-        }
+        //if (other.CompareTag("Coin"))
+        //{
+        //    // Coin objesine temas edilmişse
+        //    GameManager.gamemanagerInstance.AddCoin();  // Coin Ekle
+        //}
         if (other.CompareTag("Shield"))
         {
             // Shield objesine temas edilmişse                      
