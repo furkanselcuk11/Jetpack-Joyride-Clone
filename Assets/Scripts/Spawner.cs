@@ -24,6 +24,13 @@ public class Spawner : MonoBehaviour
         StartCoroutine(nameof(SpawnRoutineCoin));
         StartCoroutine(nameof(SpawnRoutineRocket));
     }
+    public void SpawnStop()
+    {
+        StopCoroutine(nameof(SpawnRoutineBlock));
+        StopCoroutine(nameof(SpawnRoutineEnemy));
+        StopCoroutine(nameof(SpawnRoutineCoin));
+        StopCoroutine(nameof(SpawnRoutineRocket));
+    }
     private void Update()
     {
         //spawnInterval = GameManager.gamemanagerInstance.spawnInterval;

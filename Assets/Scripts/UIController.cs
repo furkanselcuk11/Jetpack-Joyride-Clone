@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +6,11 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    [SerializeField] private ScoreSO scoreType = null;    // Scriptable Objects eriþir 
+    [SerializeField] private RocketSO rocketType = null;    // Scriptable Objects eriþir 
+    [SerializeField] private ProfilSO profilType = null;    // Scriptable Objects eriþir 
+    [SerializeField] private CharacterSO characterType = null;    // Scriptable Objects eriþir 
+
     public static UIController uicontrollerInstance;
 
     [Space]
@@ -19,6 +24,9 @@ public class UIController : MonoBehaviour
     [Space]
     [Header("StartPanelText Controller")]
     public TextMeshProUGUI TotalGoldText;
+    public TextMeshProUGUI LevelText;
+    public TextMeshProUGUI ShieldText;
+    public TextMeshProUGUI TotalMeterText;
     [Header("GamePlayPanelText Controller")]
     public TextMeshProUGUI GamePlayGoldText;
     public TextMeshProUGUI GamePlayMeterText;
@@ -37,6 +45,7 @@ public class UIController : MonoBehaviour
     void Start()
     {
         StartUI();
+        StartPanelText();
     }
     
     void Update()
@@ -76,8 +85,21 @@ public class UIController : MonoBehaviour
         WinPanel.SetActive(true);
         PausePanel.SetActive(false);
     }
-    public void StartText()
+    public void StartPanelText()
     {
-        
+        TotalGoldText.text = scoreType.totalCoin.ToString();
+        LevelText.text = profilType.level.ToString();
+        ShieldText.text = profilType.shield.ToString()+" sec";
+        TotalMeterText.text = scoreType.totalMeter.ToString() + " / " + profilType.levelUPMeter.ToString()+" m" ;
+    }
+    public void GamePlayPanelText()
+    {
+        GamePlayMeterText.text = scoreType.currentMeter.ToString() + " m";
+        GamePlayGoldText.text = scoreType.currentCoin.ToString();
+    }
+    public void WinPanelText()
+    {
+        WinMeterText.text = scoreType.currentMeter.ToString() + " m";
+        WinGoldText.text = scoreType.currentCoin.ToString();
     }
 }

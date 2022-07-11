@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private ProfilSO profilType = null;    // Scriptable Objects eriþir 
     private Rigidbody rb;
     [SerializeField] private Animator anim;
     [Space]
@@ -13,7 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isJump;
     [SerializeField] private float playerToEnemyDistance = 18f;
     [SerializeField] private bool isShield;
-    [SerializeField] private float shieldTime = 5f;
+    [SerializeField] private float shieldTime;
+    [SerializeField] private ParticleSystem ShieldEffect;
     [Space]
     [Header("Jetpack Controller")]
     [SerializeField] private ParticleSystem jetpackEffect;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         isJump = false;
         isShield = false;
+        shieldTime = profilType.shield;
     }
     
     void Update()
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             // Ekrana dokunma bırakıldığında
             isJump = false;
-            jetpackEffect.Stop();
+            jetpackEffect.Stop();            
         }
         if (!canFire)
         {
@@ -70,8 +73,9 @@ public class PlayerController : MonoBehaviour
         {
             shieldTime -= Time.deltaTime;
             if (shieldTime <= 0)
-            {                
+            {
                 isShield = false;
+                ShieldEffect.Stop();
                 shieldTime = 0f;
             }
         }
@@ -129,15 +133,11 @@ public class PlayerController : MonoBehaviour
             GameManager.gamemanagerInstance.gameStart = false;
             anim.SetTrigger("Died");    // Ölüm efekti oynat
             UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+            GameManager.gamemanagerInstance.StopCoroutine("MeterCounter");
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Coin"))
-        //{
-        //    // Coin objesine temas edilmişse
-        //    GameManager.gamemanagerInstance.AddCoin();  // Coin Ekle
-        //}
         if (other.CompareTag("Shield"))
         {
             // Shield objesine temas edilmişse                      
@@ -151,13 +151,17 @@ public class PlayerController : MonoBehaviour
             GameManager.gamemanagerInstance.gameStart = false;
             anim.SetTrigger("Died");    // Ölüm efekti oynat
             UIController.uicontrollerInstance.LosePanelActive();    // LosePanel Açıl
+            GameManager.gamemanagerInstance.StopCoroutine("MeterCounter");
 
         }
         if (other.CompareTag("Finish"))
         {
             // Finish objesine temas edilmişse
-            GameManager.gamemanagerInstance.isFinish = true;
-            UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
+            GameManager.gamemanagerInstance.Finish();
+            //GameManager.gamemanagerInstance.isFinish = true;
+            //FindObjectOfType<Spawner>().SpawnStop();
+            //UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
+            //UIController.uicontrollerInstance.WinPanelText();
         }
     }
     void ShieldOpen()
@@ -167,6 +171,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Sheild Open");
         AudioController.audioControllerInstance.Play("SheildSound");
         isShield = true;
+        ShieldEffect.Play();
     }
     void BulletSpawner()
     {       
