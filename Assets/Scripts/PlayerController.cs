@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isShield;
     [SerializeField] private float shieldTime;
     [SerializeField] private ParticleSystem ShieldEffect;
+    [SerializeField] private GameObject rocketWarningPrefab;
     [Space]
     [Header("Jetpack Controller")]
     [SerializeField] private ParticleSystem jetpackEffect;
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         isShield = false;
         shieldTime = profilType.shield;
         anim = ShopManager.shopmanagerInstance.characterModels[characterType.selectedCharacter].gameObject.GetComponent<Animator>();
+        rocketWarningPrefab.SetActive(false);
     }
     
     void Update()
@@ -206,5 +208,16 @@ public class PlayerController : MonoBehaviour
                 Destroy(target,1);
             }
         }
+    }
+    public void RocketWarning(Transform value)
+    {
+        rocketWarningPrefab.transform.position = new Vector3(0f, value.position.y, transform.position.z);
+        rocketWarningPrefab.SetActive(true);
+        StartCoroutine(nameof(rocketWarningActive));
+    }
+    public IEnumerator rocketWarningActive()
+    {
+        yield return new WaitForSeconds(0.5f);
+        rocketWarningPrefab.SetActive(false);
     }
 }

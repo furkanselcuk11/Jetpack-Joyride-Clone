@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int poolValue = 0;
     [SerializeField] private Transform player;
     [SerializeField] private Transform finish;
-    [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private GameObject shieldPrefab;    
     void Start()
     {        
         float shieldPosY = Random.Range(1f, 9f);
@@ -88,8 +88,9 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(spawnRocketInterval); // Fonk çalışma süresi
             float rocketY = Random.Range(1f, 9f);
             GameObject newObj = objectPool.GetPooledObject(8);    // "ObjectPool" scriptinden yeni nesne çeker
-            newObj.transform.position = new Vector3(0f, rocketY, player.transform.position.z + 20f);
+            newObj.transform.position = new Vector3(0f, rocketY, player.transform.position.z + 30f);
             newObj.GetComponent<Rocket>().RocketBulletSpawner();
+            player.GetComponent<PlayerController>().RocketWarning(newObj.transform);
         }             
     }
 }
