@@ -36,10 +36,10 @@ public class Spawner : MonoBehaviour
     private void Update()
     {       
         // Yaratilacak objelerin kac saniyede bir yaratilacagi
-        spawnRocketInterval = Random.Range(3f, 6f)*Time.deltaTime;
-        spawnCoinInterval = Random.Range(2f, 5f) * Time.deltaTime;
-        spawnEnemyInterval = Random.Range(1f, 2f) * Time.deltaTime;
-        spawnBlockInterval = Random.Range(2f, 4f) * Time.deltaTime;
+        spawnRocketInterval = Random.Range(3f, 6f);
+        spawnCoinInterval = Random.Range(2f, 5f);
+        spawnEnemyInterval = Random.Range(1f, 2f);
+        spawnBlockInterval = Random.Range(2f, 4f);
     }
     private IEnumerator SpawnRoutineBlock()
     {
