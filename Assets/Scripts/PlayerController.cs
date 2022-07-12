@@ -161,10 +161,11 @@ public class PlayerController : MonoBehaviour
         {
             // Finish objesine temas edilmişse
             GameManager.gamemanagerInstance.Finish();
-            //GameManager.gamemanagerInstance.isFinish = true;
-            //FindObjectOfType<Spawner>().SpawnStop();
-            //UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
-            //UIController.uicontrollerInstance.WinPanelText();
+        }
+        if (other.CompareTag("SpawnStop"))
+        {
+            // SpawnStop objesine temas edilmişse
+            FindObjectOfType<Spawner>().SpawnStop();
         }
     }
     void ShieldOpen()

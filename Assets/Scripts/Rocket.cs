@@ -26,9 +26,6 @@ public class Rocket : MonoBehaviour
     {
         if (GameManager.gamemanagerInstance.gameStart)
         {
-            //GameObject newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-            //newBullet.GetComponent<Rigidbody>().AddForce(-transform.forward * rocketSpeed, ForceMode.Force);
-
             GameObject newBullet = objectPool.GetPooledObject(9);    // "ObjectPool" scriptinden yeni nesne çeker
             newBullet.transform.position = new Vector3(0f, this.transform.position.y, this.transform.position.z);
             newBullet.transform.rotation = bulletSpawnPoint.rotation;

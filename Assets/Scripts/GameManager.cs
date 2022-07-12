@@ -65,8 +65,7 @@ public class GameManager : MonoBehaviour
     public void Finish()
     {
         isFinish = true;
-        StopCoroutine("MeterCounter");
-        FindObjectOfType<Spawner>().SpawnStop();
+        StopCoroutine("MeterCounter");        
         UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
         UIController.uicontrollerInstance.WinPanelText();
     }

@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private ObjectPool objectPool = null;
     [SerializeField] private int poolValue = 0;
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject shieldPrefab;
     void Start()
     {
-        //StartCoroutine(nameof(SpawnRoutine));
-        //spawnInterval = GameManager.gamemanagerInstance.spawnInterval;
-        
+        float shieldPosY = Random.Range(1f, 9f);
+        float shieldPosZ = Random.Range(20f, 80f);
+        GameObject newShieldObject = Instantiate(shieldPrefab, new Vector3(0f,shieldPosY,shieldPosZ),Quaternion.Euler(new Vector3(90f,0f,90f)));
     }
     public void SpawnStart()
     {
@@ -32,8 +33,7 @@ public class Spawner : MonoBehaviour
         StopCoroutine(nameof(SpawnRoutineRocket));
     }
     private void Update()
-    {
-        //spawnInterval = GameManager.gamemanagerInstance.spawnInterval;
+    {       
         spawnRocketInterval = Random.Range(3f, 6f);
         spawnCoinInterval = Random.Range(2f, 6f);
         spawnEnemyInterval = Random.Range(1f, 5f);
