@@ -36,9 +36,9 @@ public class Spawner : MonoBehaviour
     private void Update()
     {       
         spawnRocketInterval = Random.Range(3f, 6f);
-        spawnCoinInterval = Random.Range(2f, 6f);
-        spawnEnemyInterval = Random.Range(1f, 5f);
-        spawnBlockInterval = Random.Range(2f, 6f);
+        spawnCoinInterval = Random.Range(2f, 5f);
+        spawnEnemyInterval = Random.Range(1f, 2f);
+        spawnBlockInterval = Random.Range(2f, 4f);
     }
     private IEnumerator SpawnRoutineBlock()
     {
