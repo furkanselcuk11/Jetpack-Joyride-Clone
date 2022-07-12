@@ -10,43 +10,27 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Slider progressBar;
     void Start()
     {
-        //if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre 2) son seviye gelince ilk levele geri döner
-        //{
-        //    SceneManager.LoadScene(1);  // Oyunun ilk sahnesinin Ýndex deðerini çalýþtýrýr
-        //    scoreType.gameLevel = 1;
-        //}
-        //else
-        //{
-        //    SceneManager.LoadScene(scoreType.gameLevel);   // Currentevel+1 diye deðiþtir
-        //    //Bir sonraki levele geçer
-        //}
         StartCoroutine(nameof(StartLoading));
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     IEnumerator StartLoading()
     {
-        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre 2) son seviye gelince ilk levele geri döner
+        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre) son seviye gelince ilk levele geri döner
         {
-            AsyncOperation async= SceneManager.LoadSceneAsync(1);  // Oyunun ilk sahnesinin Ýndex deðerini çalýþtýrýr
-            scoreType.gameLevel = 1;
+            AsyncOperation async= SceneManager.LoadSceneAsync(1);  // Oyunun ilk sahnesinin index degerini çaliştirir
+            scoreType.gameLevel = 1;    // Oyun levelini 1 yapar
             while (!async.isDone)
             {
-                progressBar.value = async.progress;
+                progressBar.value = async.progress; // Loading akranı ileriler
                 yield return null;
             }
         }
         else
         {
-            AsyncOperation async = SceneManager.LoadSceneAsync(scoreType.gameLevel);   // Currentevel+1 diye deðiþtir
+            AsyncOperation async = SceneManager.LoadSceneAsync(scoreType.gameLevel);   
             //Bir sonraki levele geçer
             while (!async.isDone)
             {
-                progressBar.value = async.progress;
+                progressBar.value = async.progress; // Loading akranı ileriler
                 yield return null;
             }
         }

@@ -26,6 +26,7 @@ public class Rocket : MonoBehaviour
     {
         if (GameManager.gamemanagerInstance.gameStart)
         {
+            // Rocker her yaratilidginda mermi rocket mermisi yarat ve mermi atesle
             GameObject newBullet = objectPool.GetPooledObject(9);    // "ObjectPool" scriptinden yeni nesne çeker
             newBullet.transform.position = new Vector3(0f, this.transform.position.y, this.transform.position.z);
             newBullet.transform.rotation = bulletSpawnPoint.rotation;

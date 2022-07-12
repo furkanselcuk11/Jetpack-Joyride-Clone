@@ -12,11 +12,12 @@ public class ProgressBar : MonoBehaviour
     
     void Update()
     {
-        GetCurrentFill();
+        GetCurrentFill();   // Progresbar ilerler
     }
     void GetCurrentFill()
     {
-        float fillAmount = (float)scoreType.totalMeter / (float)profilType.levelUPMeter;
+        // FillAmount degeri toplam mesafe/ toplam gidilmesi gereken mesafe oalrak girer
+        float fillAmount = (float)scoreType.totalMeter / (float)profilType.levelUPMeter;   
         fillAmountImage.fillAmount = fillAmount;
     }
 }

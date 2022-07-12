@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gamemanagerInstance;
 
-    public bool gameStart;
-    public bool isFinish;
+    public bool gameStart;  // Oyun basladimi
+    public bool isFinish;   // Finish alanına girdimi
 
     private void Awake()
     {
@@ -23,14 +23,15 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //SceneManager.LoadScene(scoreType.gameLevel);
-        gameStart = false;
-        isFinish = false;
-        Time.timeScale = 1;
-        AudioController.audioControllerInstance.Play("BGSound");
-        StartTextReset();
+        gameStart = false;  // oyun yuklendiginde gameStart false olarak baslar
+        isFinish = false; // oyun yuklendiginde isFinish false olarak baslar
+        Time.timeScale = 1; // oyun zamanı normal hızda başlat
+        AudioController.audioControllerInstance.Play("BGSound");    // oyun ana sesini acar
+        StartTextReset();   // ana ekrandaki text yazıları gunceller
     }
     void StartTextReset()
     {
+        // ana ekrandaki text yazıları gunceller
         scoreType.currentMeter = scoreType.minMeter;
         scoreType.currentCoin = scoreType.minCoin;
         UIController.uicontrollerInstance.GamePlayMeterText.text = scoreType.minMeter.ToString() + " m";
@@ -42,45 +43,47 @@ public class GameManager : MonoBehaviour
     }    
     public void AddCoin()
     {
-        // Altın Ekle
+        // Altın Ekler
         Debug.Log("Coin added");
-        AudioController.audioControllerInstance.Play("CoinSound");
-        scoreType.currentCoin++;
-        UIController.uicontrollerInstance.GamePlayGoldText.text = scoreType.currentCoin.ToString(); ;
+        AudioController.audioControllerInstance.Play("CoinSound");  // Coin ses acar
+        scoreType.currentCoin++;    
+        UIController.uicontrollerInstance.GamePlayGoldText.text = scoreType.currentCoin.ToString();
+        // Coin ekler ve text gunceller
     }
-    
+
     public void Music(int value)
     {    
         // Müzik aç/kapat
         if (value == 0)
         {
             AudioController.audioControllerInstance.Stop("BGSound");
-
+            // Muzik kapatır
         }
         else
         {
             AudioController.audioControllerInstance.Play("BGSound");
+            // Muzik kapatır
         }
-        SaveManager.savemanagerInstance.SaveGAme();
+        SaveManager.savemanagerInstance.SaveGAme(); // Muzık ayarlarını kaydeder
     }
     public void Finish()
     {
-        isFinish = true;
-        StopCoroutine("MeterCounter");        
-        UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
-        UIController.uicontrollerInstance.WinPanelText();        
+        isFinish = true;    
+        StopCoroutine("MeterCounter");  // mesafe sayaci durdurulur      
+        UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl 
+        UIController.uicontrollerInstance.WinPanelText();        // WinPanel Açıl
     }
     public void NextLevel()
     {
-        // Sonraki Level
+        // Sonraki Level gecer
         gameStart = false;
-        scoreType.totalCoin += scoreType.currentCoin;
-        scoreType.totalMeter += scoreType.currentMeter;
-        scoreType.gameLevel++;
-        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre 2) son seviye gelince ilk levele geri döner
+        scoreType.totalCoin += scoreType.currentCoin;   // oyunda toplanan coinleri totalcoin kismina ekler
+        scoreType.totalMeter += scoreType.currentMeter; // oyunda gidilen mesafeyi totalmeter kismina ekler
+        scoreType.gameLevel++;  // Bir sonraki icin arttırır
+        if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre ) son seviye gelince ilk levele geri döner
         {
-            SceneManager.LoadScene(1);  // Oyunun ilk sahnesinin Ýndex deðerini çalýþtýrýr
-            scoreType.gameLevel = 1;
+            SceneManager.LoadScene(1);  // Oyunun ilk sahnesinin index degerini çalistirir
+            scoreType.gameLevel = 1;    // oyunlevelini 1 oalrak ekler
         }
         else
         {
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-
+            // Mesafe sayacını baslatir
             yield return new WaitForSeconds(0.1f);
             scoreType.currentMeter += 1;
             UIController.uicontrollerInstance.GamePlayMeterText.text = scoreType.currentMeter.ToString() + " m";
