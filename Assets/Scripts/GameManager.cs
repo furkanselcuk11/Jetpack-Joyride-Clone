@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         if (gamemanagerInstance == null)
         {
             gamemanagerInstance = this;
-        }
+        }        
     }
     void Start()
     {
@@ -60,14 +60,15 @@ public class GameManager : MonoBehaviour
         else
         {
             AudioController.audioControllerInstance.Play("BGSound");
-        }        
+        }
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void Finish()
     {
         isFinish = true;
         StopCoroutine("MeterCounter");        
         UIController.uicontrollerInstance.WinPanelActive();    // LosePanel Açıl // WinPanel Açıl
-        UIController.uicontrollerInstance.WinPanelText();
+        UIController.uicontrollerInstance.WinPanelText();        
     }
     public void NextLevel()
     {
@@ -78,8 +79,8 @@ public class GameManager : MonoBehaviour
         scoreType.gameLevel++;
         if (scoreType.gameLevel == SceneManager.sceneCountInBuildSettings)  // Son seviye kaçsa (index deðerine göre 2) son seviye gelince ilk levele geri döner
         {
-            SceneManager.LoadScene(0);  // Oyunun ilk sahnesinin Ýndex deðerini çalýþtýrýr
-            scoreType.gameLevel = 0;
+            SceneManager.LoadScene(1);  // Oyunun ilk sahnesinin Ýndex deðerini çalýþtýrýr
+            scoreType.gameLevel = 1;
         }
         else
         {
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
             profilType.shield++;
             profilType.levelUPMeter+= profilType.levelUPMeter;
         }
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void RetyLevel()
     {

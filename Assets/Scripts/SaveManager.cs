@@ -6,11 +6,18 @@ using System.IO;
 
 public class SaveManager : MonoBehaviour
 {
-
+    public static SaveManager savemanagerInstance;
     [Header("Meta")]
     public string saveName;
     [Header("Scriptable Objects")]
     public List<ScriptableObject> objectsToSave;
+    private void Awake()
+    {
+        if (savemanagerInstance == null)
+        {
+            savemanagerInstance = this;
+        }
+    }
     private void OnEnable()
     {
         // Veri Cekme        

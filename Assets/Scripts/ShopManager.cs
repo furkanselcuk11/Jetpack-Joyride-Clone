@@ -44,13 +44,14 @@ public class ShopManager : MonoBehaviour
         characterModels[newCharacter].SetActive(true);
         characterType.selectedCharacter = newCharacter;
         player.GetComponent<PlayerController>().anim= characterModels[newCharacter].gameObject.GetComponent<Animator>();
-
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void ChangeJetpack(int newJetpack)
     {
         jetpackModels[currentJetpackIndex].SetActive(false);
         jetpackModels[newJetpack].SetActive(true);
         jetpackType.selectedJetpack = newJetpack;
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void CharacterUpdate()
     {
@@ -60,6 +61,7 @@ public class ShopManager : MonoBehaviour
             character.SetActive(false);
         }
         characterModels[currentCharacterIndex].SetActive(true);
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void JetpackUpdate()
     {
@@ -69,6 +71,7 @@ public class ShopManager : MonoBehaviour
             jetpack.SetActive(false);
         }
         jetpackModels[currentJetpackIndex].SetActive(true);
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void UpdateButtons()
     {
@@ -102,6 +105,7 @@ public class ShopManager : MonoBehaviour
 
             }
         }
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void CharacterBuy(int newcharater)
     {
@@ -117,6 +121,7 @@ public class ShopManager : MonoBehaviour
         {
             characterType.characters[newcharater].isUnlocked = false;
         }
+        SaveManager.savemanagerInstance.SaveGAme();
     }
     public void JetpackBuy(int newJetpack)
     {
@@ -132,5 +137,6 @@ public class ShopManager : MonoBehaviour
         {
             jetpackType.jetpacks[newJetpack].isUnlocked = false;
         }
+        SaveManager.savemanagerInstance.SaveGAme();
     }
 }
