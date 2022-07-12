@@ -5,8 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private ProfilSO profilType = null;    // Scriptable Objects eriþir 
+    [SerializeField] private CharacterSO characterType = null;    // Scriptable Objects eriþir 
+
     private Rigidbody rb;
-    [SerializeField] private Animator anim;
+    public Animator anim;
     [Space]
     [Header("Player Controller")]
     [SerializeField] private float _speed = 10f;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
         isJump = false;
         isShield = false;
         shieldTime = profilType.shield;
+        anim = ShopManager.shopmanagerInstance.characterModels[characterType.selectedCharacter].gameObject.GetComponent<Animator>();
     }
     
     void Update()

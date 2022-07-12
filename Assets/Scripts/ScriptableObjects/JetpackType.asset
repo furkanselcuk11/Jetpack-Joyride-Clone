@@ -10,7 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff2ea9853400d8b4084ff50ff1d3ddad, type: 3}
-  m_Name: RocketType
+  m_Name: JetpackType
   m_EditorClassIdentifier: 
-  _selectedRocket: 0
-  _rockets: []
+  _selectedJetpack: 0
+  _jetpacks:
+  - index: 0
+    price: 0
+    isUnlocked: 1
+  - index: 1
+    price: 2000
+    isUnlocked: 0
+  - index: 2
+    price: 5000
+    isUnlocked: 0

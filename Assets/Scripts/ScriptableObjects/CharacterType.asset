@@ -13,4 +13,13 @@ MonoBehaviour:
   m_Name: CharacterType
   m_EditorClassIdentifier: 
   _selectedCharacter: 0
-  _characters: []
+  _characters:
+  - index: 0
+    price: 0
+    isUnlocked: 1
+  - index: 1
+    price: 2000
+    isUnlocked: 0
+  - index: 2
+    price: 5000
+    isUnlocked: 0

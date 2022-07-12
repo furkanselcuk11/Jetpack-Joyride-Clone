@@ -7,7 +7,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private ScoreSO scoreType = null;    // Scriptable Objects eriþir 
-    [SerializeField] private RocketSO rocketType = null;    // Scriptable Objects eriþir 
+    [SerializeField] private JetpackSO jetpackType = null;    // Scriptable Objects eriþir 
     [SerializeField] private ProfilSO profilType = null;    // Scriptable Objects eriþir 
     [SerializeField] private CharacterSO characterType = null;    // Scriptable Objects eriþir 
 

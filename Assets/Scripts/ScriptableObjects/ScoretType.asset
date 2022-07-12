@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ScoretType
   m_EditorClassIdentifier: 
   _minCoin: 0
-  _currentCoin: 0
-  _totalCoin: 0
+  _currentCoin: 6
+  _totalCoin: 3000
   _minMeter: 0
-  _currentMeter: 0
+  _currentMeter: 92
   _totalMeter: 0
   _gameLevel: 0
