@@ -86,6 +86,15 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(scoreType.gameLevel);   // Currentevel+1 diye deðiþtir
             //Bir sonraki levele geçer
         }
+        if (scoreType.totalMeter >= profilType.levelUPMeter)
+        {
+            // Eğer Toplam gidilen mesafe level atlamak için gerekli olan toplam mesafeye eşit veya büyük ise
+            // Level atla ve Shiled süresisi uzat 
+            // Level atlamak için gerekli olan toplam mesafeyi arttır
+            profilType.level++;
+            profilType.shield++;
+            profilType.levelUPMeter+= profilType.levelUPMeter;
+        }
     }
     public void RetyLevel()
     {

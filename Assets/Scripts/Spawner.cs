@@ -11,11 +11,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private ObjectPool objectPool = null;
     [SerializeField] private int poolValue = 0;
     [SerializeField] private Transform player;
+    [SerializeField] private Transform finish;
     [SerializeField] private GameObject shieldPrefab;
     void Start()
-    {
+    {        
         float shieldPosY = Random.Range(1f, 9f);
-        float shieldPosZ = Random.Range(20f, 80f);
+        float shieldPosZ = Random.Range(player.position.z+20f, finish.position.z-30f);
         GameObject newShieldObject = Instantiate(shieldPrefab, new Vector3(0f,shieldPosY,shieldPosZ),Quaternion.Euler(new Vector3(90f,0f,90f)));
     }
     public void SpawnStart()

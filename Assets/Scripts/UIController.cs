@@ -7,9 +7,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private ScoreSO scoreType = null;    // Scriptable Objects eriþir 
-    [SerializeField] private JetpackSO jetpackType = null;    // Scriptable Objects eriþir 
     [SerializeField] private ProfilSO profilType = null;    // Scriptable Objects eriþir 
-    [SerializeField] private CharacterSO characterType = null;    // Scriptable Objects eriþir 
 
     public static UIController uicontrollerInstance;
 
@@ -25,6 +23,7 @@ public class UIController : MonoBehaviour
     [Header("StartPanelText Controller")]
     public TextMeshProUGUI TotalGoldText;
     public TextMeshProUGUI LevelText;
+    public TextMeshProUGUI ProfilLevelText;
     public TextMeshProUGUI ShieldText;
     public TextMeshProUGUI TotalMeterText;
     [Header("GamePlayPanelText Controller")]
@@ -89,6 +88,7 @@ public class UIController : MonoBehaviour
     {
         TotalGoldText.text = scoreType.totalCoin.ToString();
         LevelText.text = profilType.level.ToString();
+        ProfilLevelText.text = profilType.level.ToString();
         ShieldText.text = profilType.shield.ToString()+" sec";
         TotalMeterText.text = scoreType.totalMeter.ToString() + " / " + profilType.levelUPMeter.ToString()+" m" ;
     }

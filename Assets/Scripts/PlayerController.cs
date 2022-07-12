@@ -143,7 +143,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Shield"))
         {
-            // Shield objesine temas edilmişse                      
+            // Shield objesine temas edilmişse       
+            Destroy(other.gameObject);
             ShieldOpen();           
         }
         if (other.CompareTag("Rocket") && !isShield)
